@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="hitCount" style="font-size: 72pt;"></div>
+    <script src="scripts/jquery-1.12.4.js"></script>
+    <script src="scripts/jquery-ui-1.12.1.js"></script>
+    <script src="scripts/jquery.signalR-2.2.1.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var con = $.hubConnection();
+            var hub = con.createHubProxy('HitCounter');
+            hub.on('hitReceived', function (count) {
+                $('#hitCount').text(count);
+            });
+            con.start();
+        });
+    </script>
+</body>
+</html>
